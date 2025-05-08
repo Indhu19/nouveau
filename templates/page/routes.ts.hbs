@@ -1,11 +1,11 @@
 import { createRoute } from '@tanstack/react-router';
-import { loaderQueryOptions } from './queries';
+import { {{camelCase name}}QueryOptions } from './queries';
 import { root } from '@/router/routes/Root.tsx';
 
 export const {{camelCase name}}Route = createRoute({
   getParentRoute: () => root,
   path: '/{{kebabCase name}}',
   loader: async ({ context }) => {
-    await context.queryClient.prefetchQuery(loaderQueryOptions());
+    await context.queryClient.prefetchQuery({{camelCase name}}QueryOptions());
   },
 }).lazy(() => import('./Index').then(d => d.Route));

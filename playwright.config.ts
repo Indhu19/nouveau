@@ -1,18 +1,34 @@
-import { defineConfig, devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { defineConfig, devices } from '@playwright/test';
+import dotenv from 'dotenv';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const authFile = path.join(__dirname, 'tests', 'e2e', 'auth', 'user.json');
+
+const authDir = path.dirname(authFile);
+if (!fs.existsSync(authDir)) {
+  fs.mkdirSync(authDir, { recursive: true });
+}
+
+const baseURL = process.env.BASE_URL ?? 'http://localhost:5173';
+
 export default defineConfig({
-  testDir: './tests',
+  testDir: './tests/e2e',
+  globalSetup: './tests/global-setup.ts',
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -26,10 +42,10 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
-
+    baseURL: baseURL,
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
   },
 
   /* Configure projects for major browsers */
@@ -38,43 +54,43 @@ export default defineConfig({
     //   name: 'chromium',
     //   use: { ...devices['Desktop Chrome'] },
     // },
-
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: { ...devices['Desktop Firefox'], storageState: authFile }
     },
-
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { ...devices['Desktop Safari'], storageState: authFile },
     },
-
-    /* Test against mobile viewports. */
+  //
+  //   /* Test against mobile viewports. */
     {
       name: 'Mobile Chrome',
-      use: { ...devices['Pixel 7'] },
+      use: { ...devices['Pixel 7'], storageState: authFile },
     },
     {
       name: 'Mobile Safari',
-      use: { ...devices['iPhone 15 Pro'] },
+      use: { ...devices['iPhone 15 Pro'], storageState: authFile},
+      //  dependencies: ['setup'],
+      // testIgnore: ['**/auth-setup.ts'],
     },
 
     /* Test against Tablet viewports. */
     {
       name: 'iPad',
-      use: { ...devices['iPad Pro 11'] },
+      use: { ...devices['iPad Pro 11'], storageState: authFile},
     },
 
     /* Test against branded browsers. */
     {
       name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
+      use: { ...devices['Desktop Edge'], channel: 'msedge', storageState: authFile},
     },
     {
       name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+      use: { ...devices['Desktop Chrome'], channel: 'chrome', storageState: authFile },
     },
-  ],
+   ],
 
   /* Run your local dev server before starting the tests */
   // webServer: {
@@ -82,4 +98,5 @@ export default defineConfig({
   //   url: 'http://127.0.0.1:8000',
   //   reuseExistingServer: !process.env.CI,
   // },
+
 });

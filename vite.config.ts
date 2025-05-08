@@ -36,19 +36,32 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      '@tests': path.resolve(__dirname, './tests'),
     },
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json']
   },
   test: {
     coverage: {
       reporter: ['cobertura', 'text', 'html', 'clover', 'json', 'text-summary'],
     },
+    includeSource: ['src/**/*.{js,ts,jsx,tsx}'],
     workspace: [
       {
         test: {
           name: 'unit',
           globals: true,
           environment: 'jsdom',
-          include: ['src/**/*.{test,spec}.@(js|jsx|ts|tsx)'],
+          include: [
+            'tests/unit/**/*.{test,spec}.{js,jsx,ts,tsx}',
+            'src/**/*.{test,spec}.{js,jsx,ts,tsx}',
+            'src/**/__tests__/**/*.{js,jsx,ts,tsx}'
+          ],
+        },
+      },
+      {
+        test: {
+          name: 'e2e',
+          include: ['tests/e2e/**/*.{test,spec}.{js,jsx,ts,tsx}'],
         },
       },
       {
@@ -60,8 +73,20 @@ export default defineConfig({
             provider: 'playwright',
             instances: [{ browser: 'chromium' }],
           },
-          include: ['src/**/*.mdx', 'src/**/*.stories.@(js|jsx|mjs|ts|tsx)', 'src/**/*.{tsx,ts}', 'tests/**/**/*/.ts'],
+          include: [
+            'src/**/*.mdx',
+            'tests/**/*.stories.{js,jsx,mjs,ts,tsx}',
+            'tests/visual/**/*.{test,spec}.{js,jsx,ts,tsx}'
+          ],
           setupFiles: ['.storybook/vitest.setup.ts'],
+        },
+      },
+      {
+        test: {
+          name: 'integration',
+          globals: true,
+          environment: 'jsdom',
+          include: ['tests/integration/**/*.{test,spec}.{js,jsx,ts,tsx}'],
         },
       },
     ],

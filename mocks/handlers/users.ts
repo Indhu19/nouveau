@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { userSchema, User } from '@/pages/user-management/users.ts';
+import { userSchema, User } from '../../src/pages/user-management/users.ts';
 
 const users: User[] = [];
 

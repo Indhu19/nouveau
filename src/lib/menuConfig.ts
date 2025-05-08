@@ -1,4 +1,4 @@
-import { LayoutDashboard, type LucideIcon, Users, BarChart3 } from 'lucide-react';
+import { LayoutDashboard, type LucideIcon, Users } from 'lucide-react';
 
 export interface BaseMenuItem {
   title: string;
@@ -16,12 +16,6 @@ export const menuConfig: MenuItem[] = [
     title: 'Dashboard',
     url: '/',
     icon: LayoutDashboard,
-    isActive: true,
-  },
-   {
-    title: 'Charts',
-    url: '/charts',
-    icon: BarChart3,
     isActive: true,
   },
   {

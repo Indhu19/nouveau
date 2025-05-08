@@ -1,8 +1,17 @@
-import { Index } from '../Index';
+import { Meta, StoryObj } from '@storybook/react';
+import { Index, IndexProps } from '../Index';
 
 export default {
   title: 'Pages/{{pascalCase name}}',
   component: Index,
-};
+  tags: ['autodocs'],
+  args: {
+    // Default props
+  },
+  argTypes: {
+    // Control props here if necessary
+  },
+} as Meta<IndexProps>;
 
-export const Default = () => <Index />;
+export const Default: StoryObj<IndexProps> = {};
+

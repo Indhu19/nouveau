@@ -1,12 +1,12 @@
 import { Moon, Sun } from 'lucide-react';
 import { Suspense } from 'react';
 
-import { BarChartComponent } from '@/components/charts/BarChart.tsx';
-import { LineChartComponent } from '@/components/charts/LineChart.tsx';
-import { PieChartComponent } from '@/components/charts/PieChart.tsx';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton.tsx';
+import { BarChartComponent } from '@/pages/charts/components/BarChart.tsx';
+import { LineChartComponent } from '@/pages/charts/components/LineChart.tsx';
+import { PieChartComponent } from '@/pages/charts/components/PieChart.tsx';
 import { useChartsStore } from '@/pages/charts/store.ts';
 
 const ChartSkeleton = () => (
@@ -17,7 +17,7 @@ const ChartSkeleton = () => (
 );
 
 const ColorSelector = () => {
-  const { chartColors, updateChartColors } = useChartsStore();
+  const { updateChartColors } = useChartsStore();
 
   const colorSchemes = {
     default: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8'],

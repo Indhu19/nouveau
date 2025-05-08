@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { getInitials } from '@/lib/utils.ts';
 
-
 describe('getInitials', () => {
   it('returns initials for single word', () => {
     expect(getInitials('Alice')).toBe('A');

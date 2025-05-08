@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { cleanup } from '@testing-library/react';
 import { afterEach, beforeAll, afterAll } from 'vitest';
-import { server } from '../mocks/server';
+import { server } from './server.ts';
 
 beforeAll(() => {
   server.listen({ onUnhandledRequest: 'bypass' });

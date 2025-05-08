@@ -6,7 +6,7 @@ import { root } from '@/router/routes/Root.tsx';
 
 async function prepareMocks() {
   if (import.meta.env.DEV) {
-    const { worker } = await import('@/mocks/browser')
+    const { worker } = await import('../../../mocks/browser')
     await worker.start({
       onUnhandledRequest: 'bypass',
     });
@@ -15,7 +15,7 @@ async function prepareMocks() {
 
 export const chartsRoute = createRoute({
   getParentRoute: () => root,
-  path: '/charts',
+  path: '/components',
   component: ChartsDashboard,
   pendingComponent: PageSkeleton,
   beforeLoad: async () => {

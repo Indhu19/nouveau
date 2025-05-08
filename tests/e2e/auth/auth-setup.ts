@@ -3,17 +3,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { test as setup } from '@playwright/test';
 
-// Get directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Ensure auth directory exists
-const authDir = path.join(__dirname, '..', 'playwright', '.auth');
-if (!fs.existsSync(authDir)) {
-  fs.mkdirSync(authDir, { recursive: true });
-}
+const authFile = path.join(__dirname, 'user.json');
 
-const authFile = path.join(authDir, 'user.json');
+if (!fs.existsSync(path.dirname(authFile))) {
+  fs.mkdirSync(path.dirname(authFile), { recursive: true });
+}
 
 setup('authenticate', async ({ page, context }) => {
   console.log('Starting authentication setup...');
@@ -26,7 +23,7 @@ setup('authenticate', async ({ page, context }) => {
   const usernameInput = page.locator('input[name="username"]');
   const passwordInput = page.locator('input[name="password"]');
 
-  if (await usernameInput.isVisible() && await passwordInput.isVisible()) {
+  if ((await usernameInput.isVisible()) && (await passwordInput.isVisible())) {
     await usernameInput.fill(process.env.AUTH0_USERNAME ?? '');
     await passwordInput.fill(process.env.AUTH0_PASSWORD ?? '');
 
@@ -34,7 +31,6 @@ setup('authenticate', async ({ page, context }) => {
 
     if (await submitButton.isVisible()) {
       await submitButton.click();
-
     } else {
       throw new Error('Submit button not found on Auth0 login page');
     }
@@ -44,12 +40,10 @@ setup('authenticate', async ({ page, context }) => {
 
   await page.waitForLoadState('networkidle', { timeout: 30000 });
 
-  await page.screenshot({ path: 'after-login-attempt.png', fullPage: true });
-
-  const isLoggedIn = await page.locator('body').textContent().then(text =>
-    text && (/dashboard/i.test(text))
-  );
-  await page.screenshot({ path: 'dashboard.png', fullPage: true });
+  const isLoggedIn = await page
+    .locator('body')
+    .textContent()
+    .then(text => text && /dashboard/i.test(text));
 
   if (!isLoggedIn) {
     throw new Error('Authentication failed - login unsuccessful');

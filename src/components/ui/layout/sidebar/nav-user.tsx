@@ -29,40 +29,6 @@ export function NavUser() {
     const nameParts = name.split(' ');
     return nameParts.map(part => part.charAt(0).toUpperCase()).join('');
   };
-  // --- In-source test for getInitials ---
-if (import.meta.vitest) {
-  const { it, expect } = import.meta.vitest;
-
-  const getInitials = (name: string) => {
-    const nameParts = name.split(' ');
-    return nameParts.map(part => part.charAt(0).toUpperCase()).join('');
-  };
-
-  it('returns initials for single word', () => {
-    expect(getInitials('Alice')).toBe('A');
-  });
-
-  it('returns initials for two words', () => {
-    expect(getInitials('John Doe')).toBe('JD');
-  });
-
-  it('handles extra spaces', () => {
-    expect(getInitials('  John   Doe  ')).toBe('JD');
-  });
-
-  it('handles lowercase names', () => {
-    expect(getInitials('jane doe')).toBe('JD');
-  });
-
-  it('handles more than two words', () => {
-    expect(getInitials('Mary Ann Smith')).toBe('MAS');
-  });
-
-  it('returns empty string for empty input', () => {
-    expect(getInitials('')).toBe('');
-  });
-}
-
 
   return (
     <SidebarMenu>

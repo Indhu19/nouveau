@@ -1,9 +1,9 @@
 import { http, HttpResponse } from 'msw';
-import { lineChartData, barChartData, pieChartData } from '../fixtures/charts';
+import { lineChartData, barChartData, pieChartData } from '../fixtures/charts.ts';
 
 export const chartHandlers = [
   /**
-   * GET /api/charts/line
+   * GET /api/components/line
    * Returns line chart data
    */
   http.get('/api/charts/line', () => {
@@ -11,7 +11,7 @@ export const chartHandlers = [
   }),
 
   /**
-   * GET /api/charts/bar
+   * GET /api/components/bar
    * Returns bar chart data
    */
   http.get('/api/charts/bar', () => {
@@ -19,7 +19,7 @@ export const chartHandlers = [
   }),
 
   /**
-   * GET /api/charts/pie
+   * GET /api/components/pie
    * Returns pie chart data
    */
   http.get('/api/charts/pie', () => {

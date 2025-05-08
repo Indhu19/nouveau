@@ -8,7 +8,7 @@ export const fetch{{pascalCase name}}Data = (): Promise<{ message: string }> => 
   });
 };
 
-export const loaderQueryOptions = () =>
+export const {{camelCase name}}QueryOptions = () =>
   queryOptions({
     queryKey: ['{{kebabCase name}}'],
     queryFn: fetch{{pascalCase name}}Data,

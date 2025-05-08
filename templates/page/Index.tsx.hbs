@@ -1,11 +1,11 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createLazyRoute } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
-import { loaderQueryOptions } from './queries';
+import PageSkeleton from './PageSkeleton.tsx';
+import { {{camelCase name}}QueryOptions } from './queries';
 import { useStore } from './store';
-import PageSkeleton from '@/pages/sale-order/PageSkeleton.tsx';
 
-interface IndexProps {
+export interface IndexProps {
   // Define props if needed
 }
 
@@ -15,7 +15,7 @@ export const Route = createLazyRoute('/about')({
 });
 
 export function Index(props: IndexProps) {
-  const data = useSuspenseQuery(loaderQueryOptions());
+  const data = useSuspenseQuery({{camelCase name}}QueryOptions());
   const { t } = useTranslation('common');
   const state = useStore();
 

@@ -4,9 +4,9 @@ import { http, HttpResponse } from 'msw';
 
 import { toast } from 'sonner';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { server } from '../mocks/server.ts';
+import UserEnrollmentForm from '../src/pages/user-management/UserForm.tsx';
 
-import { server } from '../../../mocks/server.ts';
-import UserEnrollmentForm from '../../../src/pages/user-management/UserForm.tsx';
 
 // Mock toast from sonner
 vi.mock('sonner', () => ({
