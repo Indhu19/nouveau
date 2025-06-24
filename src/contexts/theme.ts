@@ -1,15 +1,15 @@
 import { createContext } from 'react';
 
-export type Theme = 'dark' | 'light' | 'system';
+import { Theme } from '@/providers/theme.tsx';
 
-export interface ThemeProviderState {
-  theme: Theme;
+interface ThemeProviderState {
   setTheme: (theme: Theme) => void;
+  theme: Theme;
 }
 
 const initialState: ThemeProviderState = {
-  theme: 'system',
   setTheme: () => null,
+  theme: 'system'
 };
 
-export const ThemeProviderContext = createContext<ThemeProviderState | undefined>(initialState);
+export const ThemeContext = createContext<ThemeProviderState>(initialState);

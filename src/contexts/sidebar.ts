@@ -1,13 +1,13 @@
 import * as React from 'react';
 
 export interface SidebarContextProps {
-  state: 'expanded' | 'collapsed';
-  open: boolean;
-  setOpen: (open: boolean) => void;
-  openMobile: boolean;
-  setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
+  open: boolean;
+  openMobile: boolean;
+  setOpen: (open: boolean) => void;
+  setOpenMobile: (open: boolean) => void;
+  state: 'collapsed' | 'expanded';
   toggleSidebar: () => void;
 }
 
-export const SidebarContext = React.createContext<SidebarContextProps | undefined>(undefined);
+export const SidebarContext = React.createContext<null | SidebarContextProps>(null);

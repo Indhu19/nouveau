@@ -1,22 +1,17 @@
-import { useSidebar } from './useSidebar.ts';
-import { useResolvedTheme } from './useTheme.ts';
+import useSidebar from '@/hooks/useSidebar.ts';
+import { useResolvedTheme } from '@/hooks/useTheme';
+import { Theme } from '@/providers/theme.tsx';
+
+export function useIcon() {
+  const theme = useResolvedTheme();
+  return `icon-${theme}.svg`;
+}
 
 export function useLogo() {
-  const theme = useResolvedTheme();
+  const theme: Theme = useResolvedTheme();
   const { state: sidebarState } = useSidebar();
 
   const isSidebarCollapsed = sidebarState === 'collapsed';
 
-  return isSidebarCollapsed
-    ? theme === 'dark'
-      ? '/logo-small-dark.svg'
-      : '/logo-small-light.svg'
-    : theme === 'dark'
-      ? '/logo-dark.svg'
-      : '/logo-light.svg';
-}
-
-export function useSmallLogo() {
-  const theme = useResolvedTheme();
-  return theme === 'dark' ? '/logo-small-dark.svg' : '/logo-small-light.svg';
+  return isSidebarCollapsed ? `/icon-${theme}.svg` : `/logo-${theme}.svg`;
 }

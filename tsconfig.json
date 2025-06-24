@@ -1,19 +1,10 @@
 {
   "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ],
+  "references": [{ "path": "./tsconfig.app.json" }, { "path": "./tsconfig.node.json" }],
   "compilerOptions": {
     "baseUrl": ".",
-//    "types": [
-//      "vitest/importMeta"
-//    ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/lib/*": ["src/lib/*"],
-//      "@tests/*": ["./tests/*"]
+      "@/*": ["./src/*"]
     }
   }
 }

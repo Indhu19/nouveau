@@ -4,20 +4,24 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint from 'typescript-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier/flat';
-import importPlugin from 'eslint-plugin-import';
-import testingLibrary from 'eslint-plugin-testing-library';
-import vitest from '@vitest/eslint-plugin';
+import pluginRouter from '@tanstack/eslint-plugin-router';
+import pluginQuery from '@tanstack/eslint-plugin-query';
+import perfectionist from 'eslint-plugin-perfectionist';
+import storybook from 'eslint-plugin-storybook';
+import i18next from 'eslint-plugin-i18next';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'coverage'] },
   {
     extends: [
       js.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
+      ...pluginRouter.configs['flat/recommended'],
+      ...pluginQuery.configs['flat/recommended'],
       eslintConfigPrettier,
-      importPlugin.flatConfigs.recommended,
-      importPlugin.flatConfigs.typescript,
+      perfectionist.configs['recommended-natural'],
+      i18next.configs['flat/recommended']
     ],
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -25,27 +29,24 @@ export default tseslint.config(
       globals: globals.browser,
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
+        tsconfigRootDir: import.meta.dirname
+      }
     },
     plugins: {
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      vitest,
-      ...testingLibrary.configs['flat/react'],
+      'react-refresh': reactRefresh
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      ...vitest.configs.recommended.rules,
+      'max-lines': ['warn', { max: 400, skipBlankLines: true, skipComments: true }],
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-      'import/order': ['error', { alphabetize: { order: 'asc' } }],
-    },
-    settings: {
-      'import/resolver': {
-        typescript: {
-          project: './tsconfig.app.json',
-        },
-      },
-    },
-  }
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allowNumber: true
+        }
+      ]
+    }
+  },
+  storybook.configs['flat/recommended']
 );

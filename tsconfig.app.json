@@ -6,6 +6,8 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "types": ["@vitest/browser/providers/playwright"], // https://main.vitest.dev/guide/browser/#typescript
+
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -13,21 +15,18 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+
     /* Linting */
     "strict": true,
-//    "types": [
-//      "vitest/importMeta"
-//    ],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
+
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@/lib/*": ["src/lib/*"],
-//      "@tests/*": ["./tests/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".storybook/*.ts", ".storybook/*.tsx", "./src/UserForm.test.tsx"]
+  "include": ["src", ".storybook/*.ts"]
 }
